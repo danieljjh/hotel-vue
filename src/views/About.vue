@@ -1,4 +1,5 @@
 <template>
+<!-- le-markdown  -->
   <div id="editor-main">
     <h1>This is an about page</h1>
     <le-editor v-model="value" :hljs-css="hljsCss" :image-uploader="imageUploader" @save="save"></le-editor>
@@ -47,5 +48,8 @@ export default {
     color: #2c3e50;
     width: 100%;
     height: 100%;
+  }
+  .CodeMirror{
+    text-align: left;
   }
 </style>
