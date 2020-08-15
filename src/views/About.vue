@@ -38,8 +38,8 @@ export default {
 </script>
 <style lang="scss">
   #app {
-    width: 800px;
-    height: 400px;
+    width: 90%;
+    height: 600px;
     margin: 50px auto;
   }
 
