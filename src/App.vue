@@ -1,13 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <BackMenu />
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
+<script>
+import BackMenu from "@/components/BackMenu";
 
+export default {
+  name: "App",
+  components: {
+    BackMenu
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

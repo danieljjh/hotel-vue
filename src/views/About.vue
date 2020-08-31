@@ -7,24 +7,24 @@
   </div>
 </template>
 <script>
-// import pmd from 'le-markdown-editor'
+// import pmd from "le-markdown-editor"
 // const store = this.$stores
 export default {
-  name: 'Editor',
+  name: "Editor",
   components: {
   },
   data () {
     return {
-      hljsCss: 'agate',
-      value: '这里放markdown内容',
+      hljsCss: "agate",
+      value: "这里放markdown内容",
       // 自定义
       imageUploader: {
         custom: false,
-        fileType: 'file',
-        fileNameType: '',
-        imagePrefix: 'http://47.100.125.98', // 图片上传成功后，预览地址前缀
-        type: 'server',
-        url: 'http://47.100.125.98:82/upload' // 上传接口地址
+        fileType: "file",
+        fileNameType: "",
+        imagePrefix: "http://47.100.125.98", // 图片上传成功后，预览地址前缀
+        type: "server",
+        url: "http://47.100.125.98:82/upload" // 上传接口地址
       }
     }
   },
