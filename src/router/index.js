@@ -33,6 +33,11 @@ const routes = [{
         component: () => import("@/views/hotels/HotelHome.vue")
     },
     {
+        path: "/hotel/room",
+        name: "HotelRoom",
+        component: () => import("@/views/hotels/HotelRoom.vue")
+    },
+    {
         path: "/hotel/orders",
         name: "HotelOrders",
         component: () => import("@/views/hotels/HotelOrders.vue")
