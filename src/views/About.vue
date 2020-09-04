@@ -13,7 +13,7 @@ export default {
   name: "Editor",
   components: {
   },
-  data () {
+  data() {
     return {
       hljsCss: "agate",
       value: "这里放markdown内容",

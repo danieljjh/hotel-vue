@@ -14,6 +14,11 @@ module.exports = {
         quotes: ["error", "double"],
         semi: 0,
         indent: "off",
+        'space-before-function-paren': ['error', {
+            anonymous: 'always',
+            named: 'never',
+            asyncArrow: 'always'
+        }],
         "no-extra-semi": 0,
         "generator-star-spacing": "off",
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

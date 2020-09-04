@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>酒店信息</h1>
+    <h1>客房信息</h1>
     <el-form ref="form" :model="sizeForm" label-width="80px" size="mini">
       <el-form-item label="活动名称">
         <el-input v-model="sizeForm.name"></el-input>
@@ -44,7 +44,7 @@
       </el-form-item>
     </el-form>
     <el-row>
-      <h3>客房列表</h3>
+      <h3>价格列表</h3>
       <el-table :data="hotelRooms" style="width: 100%">
         <el-table-column prop="roomName" label="房间名称" width="180"></el-table-column>
         <el-table-column prop="roomDesc" label="说明" width="180"></el-table-column>
@@ -62,7 +62,7 @@
 <script>
 export default {
   name: "hotelhome",
-  data () {
+  data() {
     return {
       sizeForm: {
         name: "",
@@ -115,10 +115,10 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
+    onSubmit() {
       console.log("submit!");
     },
-    roomDtl (e) {
+    roomDtl(e) {
         console.log(e)
               var nr = this.$router.resolve({
         name: "HotelRoom",

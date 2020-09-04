@@ -1,10 +1,10 @@
 module.exports = {
-  publicPath: '/',
-  outputDir: 'lib',
+  publicPath: "/",
+  outputDir: "dist",
   chainWebpack: config => {
-    config.module.rule('md')
+    config.module.rule("md")
       .test(/\.md/)
-      .use('raw-loader')
-      .loader('raw-loader')
+      .use("raw-loader")
+      .loader("raw-loader")
   }
 }

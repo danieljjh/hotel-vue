@@ -21,7 +21,7 @@
             </el-select>
         </el-form-item>
         <el-form-item label="酒店设施">
-            <el-checkbox-group v-model="hotel.type">
+            <el-checkbox-group v-model="hotel.hotelFacility">
                 <el-checkbox-button label="美食/餐厅线上活动" name="type"></el-checkbox-button>
                 <el-checkbox-button label="地推活动" name="type"></el-checkbox-button>
                 <el-checkbox-button label="线下主题活动" name="type"></el-checkbox-button>
@@ -51,7 +51,7 @@
 <script>
 export default {
     name: "hotelroom",
-    data () {
+    data() {
         return {
             hotel: {
                 hotelName: "xxx",
@@ -75,35 +75,29 @@ export default {
                     roomType: "大床房",
                     roomDtl: []
                 }
-            ],
-            tableData: [{
-                    date: "2016-05-02",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                },
-                {
-                    date: "2016-05-04",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1517 弄"
-                },
-                {
-                    date: "2016-05-01",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1519 弄"
-                },
-                {
-                    date: "2016-05-03",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1516 弄"
-                }
             ]
         };
     },
+    created() {
+            const hotelId = this.$route.query.hotelId
+            console.log("q", hotelId)
+            if (hotelId !== undefined) {
+                this.getHotelDtl(hotelId)
+            }
+    },
     methods: {
-        onSubmit () {
+        getHotelDtl(hotelId) {
+            const url = "https://jsonblob.com/api/6a81b857-ee72-11ea-b1f3-5fb2df3ea656"
+            this.$http.get(url).then(
+                (res) => {
+                    console.log("gethotel", res.data)
+                }
+            )
+        },
+        onSubmit() {
             console.log("submit!");
         },
-        roomDtl (e) {
+        roomDtl(e) {
             console.log(e);
             var nr = this.$router.resolve({
                 name: "HotelRoom",

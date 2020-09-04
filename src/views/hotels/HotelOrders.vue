@@ -25,7 +25,7 @@
 <script>
 export default {
     name: "hotelhome",
-    data () {
+    data() {
         return {
             tableData: [
                 {
@@ -49,7 +49,7 @@ export default {
         }
     },
     methods: {
-        onSubmit () {
+        onSubmit() {
             console.log("submit!")
         }
     }

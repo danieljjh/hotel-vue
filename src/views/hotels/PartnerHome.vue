@@ -53,7 +53,7 @@
 <script>
 export default {
   name: "hotelhome",
-  data () {
+  data() {
     return {
       partner: {
         name: "xxx 商家",
@@ -86,10 +86,10 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
+    onSubmit() {
       console.log("submit!");
     },
-    toHotelDtl (e) {
+    toHotelDtl(e) {
       // var itemCode = e.itemCode;
       var nr = this.$router.resolve({
         name: "HotelHome",
