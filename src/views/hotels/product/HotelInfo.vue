@@ -34,6 +34,10 @@
     </el-form>
     <el-row>
         <h3>客房列表</h3>
+        <el-row>
+                    <el-button type="primary" size="mini" @click="newRoom">新建客房</el-button>
+
+        </el-row>
         <el-table :data="hotelRooms" style="width: 100%">
             <el-table-column prop="roomName" label="房间名称" width="180"></el-table-column>
             <el-table-column prop="roomDesc" label="说明" width="180"></el-table-column>
@@ -102,7 +106,19 @@ export default {
             var nr = this.$router.resolve({
                 name: "HotelRoom",
                 query: {
+                    hotelId: 3,
                     roomId: 2
+                }
+            });
+            // window.open(nr.href, "_blank");
+            window.open(nr.href, "_self");
+        },
+        newRoom() {
+            var nr = this.$router.resolve({
+                name: "HotelRoom",
+                query: {
+                    hotelId: 3,
+                    roomId: 0
                 }
             });
             // window.open(nr.href, "_blank");

@@ -34,37 +34,37 @@ const routes = [{
     {
         path: "/hotel/partner",
         name: "PartnerlHome",
-        component: () => import("@/views/hotels/PartnerHome.vue")
+        component: () => import("@/views/hotels/partner/PartnerHome.vue")
     },
     {
         path: "/hotel/partnerhotels",
         name: "PartnerHotels",
-        component: () => import("@/views/hotels/PartnerHotels.vue")
+        component: () => import("@/views/hotels/partner/PartnerHotels.vue")
     },
     {
         path: "/hotel/home",
         name: "HotelHome",
-        component: () => import("@/views/hotels/HotelHome.vue")
+        component: () => import("@/views/hotels/product/HotelInfo.vue")
     },
     {
         path: "/hotel/room",
         name: "HotelRoom",
-        component: () => import("@/views/hotels/HotelRoom.vue")
+        component: () => import("@/views/hotels/product/HotelRoom.vue")
     },
     {
         path: "/hotel/orders",
         name: "HotelOrders",
-        component: () => import("@/views/hotels/HotelOrders.vue")
+        component: () => import("@/views/hotels/booking/HotelOrders.vue")
     },
     {
         path: "/hotel/packages",
         name: "hotelpackage",
-        component: () => import("@/views/hotels/Packages.vue")
+        component: () => import("@/views/hotels/product/Packages.vue")
     },
     {
         path: "/hotel/product-hotel",
         name: "hotelproduct",
-        component: () => import("@/views/hotels/ProductRoom.vue")
+        component: () => import("@/views/hotels/product/ProductRoom.vue")
     }
 ]
 

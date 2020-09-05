@@ -1,6 +1,9 @@
 <template>
 <div class="container">
     <h1>套餐产品</h1>
+    <el-row>
+        <el-button type="primary" @click="createNewPackage">新增套餐产品</el-button>
+    </el-row>
     <el-table :data="packages" style="width: 100%">
         <el-table-column prop="productType" label="类型" width="180">
         </el-table-column>
@@ -16,6 +19,8 @@
     </el-table>
     <el-row>
         <h1>门票</h1>
+        <el-button type="primary" @click="createNewTicket">新增门票产品</el-button>
+
         <el-table :data="tickets" style="width: 100%">
             <el-table-column prop="productType" label="类型" width="180">
             </el-table-column>
@@ -128,6 +133,12 @@ export default {
                 ret += "\n"
             }
             return ret;
+        },
+        createNewPackage() {
+            alert("新增套餐产品")
+        },
+        createNewTicket() {
+            alert("新增门票产品")
         }
     }
 };

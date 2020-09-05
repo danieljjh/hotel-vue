@@ -2,7 +2,7 @@
   <div class="container">
     <h1>商家酒店产品列表</h1>
     <el-row>
-      <el-button type="primary" @click="createNew">新增产品</el-button>
+      <el-button type="primary" @click="createNew">新增酒店产品</el-button>
     </el-row>
     <el-row>
     <el-table :data="hotels" style="width: 100%">
