@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <h2>酒店产品</h2>
-    <el-row>
+    <!-- <el-row>
         <h3>请选择酒店和房间， 如无，则先去添加酒店 </h3>
         <el-row :gutter="20">
             <el-col :span="8">
@@ -26,16 +26,158 @@
         </el-row>
 
     </el-row>
+    <el-divider></el-divider> -->
+
     <el-row>
-        <el-form :model="hotelProduct">
-            <el-form-item label="酒店">
-                <el-input v-model="hotelProduct.hotelName" />
-            </el-form-item>
-            <el-form-item label="客房">
-                <el-input v-model="hotelProduct.roomName" />
-            </el-form-item>
-        </el-form>
+        <el-col :md="18">
+            <el-form :model="hotelProduct" label-width="100px">
+                <el-row :gutter="20">
+                    <el-col :md="10">
+                        <el-form-item label="酒店">
+                            <el-input v-model="hotelProduct.hotelName" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="10">
+                        <el-form-item label="客房">
+                            <el-input v-model="hotelProduct.roomName" />
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :md="10">
+                        <el-form-item label="产品名称">
+                            <el-input v-model="hotelProduct.productTitle" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="10">
+
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-form-item label="产品说明">
+                        <el-input v-model="hotelProduct.prodDesc" />
+                    </el-form-item>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :md="8">
+                        <el-form-item label="提前预订天数">
+                            <el-input v-model="hotelProduct.leadDays" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="8">
+                        <el-form-item label="最小预订天数">
+                            <el-input v-model="hotelProduct.minDays" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="8">
+                        <el-form-item label="最大预订天数">
+                            <el-input v-model="hotelProduct.maxDays" />
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :md="8">
+                        <el-form-item label="付款方式">
+                            <el-radio-group v-model="hotelProduct.payTerm">
+                                <el-radio label="预付"></el-radio>
+                                <el-radio label="到店支付"></el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :md="8">
+                        <el-form-item label="取消条款">
+                            <el-radio-group v-model="hotelProduct.cancelTerm">
+                                <el-radio label="不可取消"></el-radio>
+                                <el-radio label="提前2天取消"></el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-button type="primary">保存</el-button>
+                </el-row>
+            </el-form>
+        </el-col>
     </el-row>
+
+    <el-divider></el-divider>
+
+    <el-row>
+        <h4>价格</h4>
+        <el-row :gutter="20">
+            <el-col :md="12">
+                <el-table :data="pricePlan" style="width: 100%">
+                    <el-table-column prop="startDay" label="开始日期" width="80"></el-table-column>
+                    <el-table-column prop="endDay" label="截止日期" width="80"></el-table-column>
+                    <el-table-column prop="price" label="单价"></el-table-column>
+                    <el-table-column label="操作" width="60">
+                        <template slot-scope="scope">
+                            <el-button type="primary" size="mini" @click="selectPrice(scope.row)">选择</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-col>
+            <el-col :md="10">
+                <el-form :model="priceLine" label-width="80px">
+                    <el-form-item label="开始日期">
+                        <el-date-picker v-model="priceLine.startDay" type="date" placeholder="选择日期">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="截止日期">
+                        <el-date-picker v-model="priceLine.endDay" type="date" placeholder="选择日期">
+                        </el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item label="有效">
+                        <el-switch v-model="priceLine.isActive" active-text="有效" inactive-text="停售">
+                        </el-switch>
+                    </el-form-item>
+                    <el-row>
+                        <el-table :data="wdPrice" style="width: 100%">
+                            <el-table-column prop="weekDay" label="周天" width="120"></el-table-column>
+                            <el-table-column prop="dayPrice" label="价格" width="120"></el-table-column>
+                            <el-table-column label="操作" width="80">
+                                <template slot-scope="scope">
+                                    <el-button type="primary" size="mini" @click="removeDaprice(scope.row, scope.$index)">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-row>
+                    <el-popover placement="right" width="400" trigger="click">
+                        <el-row>
+                            <el-col :md="12">
+                                <el-form-item label="周天数">
+                                    <el-input v-model="weekDay" />
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item label="价格">
+                                    <el-input v-model="dayPrice" />
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-button type="warning" @click="addWprice()">添加</el-button>
+
+                            <!-- {{articles}} -->
+                        </el-row>
+
+                        <div slot="reference" class="name-wrapper">
+                            <!-- <el-tag size="medium">{{ scope.row.name }}</el-tag> -->
+                            <!-- <el-button size="mini" >显示</el-button> -->
+                            <el-button>添加每天价格</el-button>
+
+                        </div>
+                    </el-popover>
+                    <el-divider></el-divider>
+
+                    <el-button type="primary" @click="savePricePlan()">保存价格表</el-button>
+                </el-form>
+            </el-col>
+
+        </el-row>
+    </el-row>
+
 </div>
 </template>
 
@@ -44,12 +186,17 @@ export default {
     name: "productHotel",
     data() {
         return {
+            pricePlan: [],
+            priceLine: {},
             hotelName: "",
             hotelProduct: {},
             hotels: [],
             hotelRooms: [],
             state: "",
-            timeout: null
+            timeout: null,
+            weekDay: "",
+            dayPrice: 0,
+            wdPrice: []
         };
     },
     mounted() {
@@ -126,6 +273,28 @@ export default {
             });
             // window.open(nr.href, "_blank");
             window.open(nr.href, "_self");
+        },
+        selectPrice(e) {
+            console.log(e)
+        },
+        addWprice() {
+            const _this = this
+            console.log("day price", _this.weekDay, _this.dayPrice)
+
+            _this.wdPrice.push({
+                weekDay: _this.weekDay,
+                dayPrice: _this.dayPrice
+            })
+            console.log(_this.wdPrice)
+        },
+        removeDaprice(row, index) {
+            console.log(row, index)
+            // this.wdPrice.pop(index)
+            this.wdPrice.splice(index, 1)
+        },
+        savePricePlan() {
+            console.log("save price line", this.priceLine)
+            this.pricePlan.push(this.priceLine)
         }
     }
 };

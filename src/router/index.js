@@ -28,8 +28,18 @@ const routes = [{
     },
     {
         path: "/home",
-        name: "BackHOme",
+        name: "BackHome",
         component: () => import("@/views/backend/BackHome.vue")
+    },
+    {
+        path: "/back/product-hotel",
+        name: "BackProductHotel",
+        component: () => import("@/views/backend/product/ProductRoomBack.vue")
+    },
+    {
+        path: "/back/vendor-product-hotel",
+        name: "VendorProductHotel",
+        component: () => import("@/views/backend/product/VendorProductRoom.vue")
     },
     {
         path: "/hotel/partner",

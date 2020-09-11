@@ -8,8 +8,19 @@
                 <span>产品</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="1-1">酒店和客房</el-menu-item>
+                <template slot="title">
+                    <span>自有产品</span>
+                </template>
+                <el-menu-item index="1-1" route="/back/product-hotel">酒店和客房</el-menu-item>
                 <el-menu-item index="1-2">预售券</el-menu-item>
+            </el-menu-item-group>
+
+            <el-menu-item-group>
+                <template slot="title">
+                    <span>商家产品</span>
+                </template>
+                <el-menu-item index="1-3" route="/back/vendor-product-hotel">酒店和客房</el-menu-item>
+                <el-menu-item index="1-4">套餐</el-menu-item>
             </el-menu-item-group>
             <!-- <el-submenu index="1-4">
             <template slot="title">选项4</template>
