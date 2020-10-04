@@ -100,7 +100,18 @@ export default {
             this.$refs.tree.filter(val);
         }
     },
+    created() {
+        this.getHotels()
+    },
     methods: {
+        getHotels() {
+            var that = this
+            that.$http.post(that.$api + "/hotels/get-hotels", { city: "shanghai" }).then(
+                (res) => {
+                    console.log("hotels", res.data)
+                }
+            )
+        },
         filterNode(value, data) {
             console.log("value", data)
             if (!value) return true;
