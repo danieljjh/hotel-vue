@@ -17,7 +17,7 @@ import leMarkdownEditor from "le-markdown-editor";
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.prototype.$appName = "My App";
-Vue.prototype.$api = "https://test.upctech.com.cn/ht";
+Vue.prototype.$api = "https://hotel.i568.me/ht";
 
 axios.defaults.headers.post["Content-Type"] = "application/json"; // 切换环境js
 
