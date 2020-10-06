@@ -34,12 +34,12 @@
                 <el-row :gutter="20">
                     <el-col :md="10">
                         <el-form-item label="酒店">
-                            <el-input v-model="hotelProduct.hotelName" />
+                            <el-input v-model="hotelProduct.hotelName" :disabled="true"/>
                         </el-form-item>
                     </el-col>
                     <el-col :md="10">
                         <el-form-item label="客房">
-                            <el-input v-model="hotelProduct.roomName" />
+                            <el-input v-model="hotelProduct.roomName" :disabled="true" />
                         </el-form-item>
                     </el-col>
                 </el-row>
