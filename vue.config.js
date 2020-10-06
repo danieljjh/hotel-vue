@@ -2,7 +2,7 @@ module.exports = {
     publicPath: process.env.NODE_ENV === "production" ?
         "/back/" : "/",
     outputDir: "dist",
-    crossorigin: "anonymous",
+    // crossorigin: "anonymous",
     devServer: {
         proxy: {
             "/localApi": {
