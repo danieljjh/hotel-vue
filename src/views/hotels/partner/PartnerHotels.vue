@@ -4,7 +4,7 @@
     <el-row>
         <el-button type="primary" @click="getHotels">新增酒店产品</el-button>
         <el-card class="box-card box1" v-if="showNewProd">
-            <el-row class="" >
+            <el-row class="">
                 <el-col :span="12">
                     <el-row>
                         <el-input placeholder="输入关键字进行过滤" v-model="filterText">
@@ -159,10 +159,13 @@ export default {
         }
     },
     created() {
-        var customerId = "MLoODbqov46z07va"
+        var Idt = localStorage.getItem("Idt")
+        if (Idt !== undefined) {
+            var userInfo = JSON.parse(Idt);
+        }
         // this.getHotels()
-        this.customerId = customerId
-        this.getHotelProducts(customerId)
+        this.customerId = userInfo.customerId
+        this.getHotelProducts(this.customerId)
     },
     methods: {
         getHotelProducts(custId) {
@@ -295,7 +298,8 @@ export default {
 .newhotel {
     margin-top: 30px;
 }
-.box1{
+
+.box1 {
     margin-bottom: 20px;
 }
 </style>

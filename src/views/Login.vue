@@ -12,7 +12,7 @@
     <div id="qrcode"></div>
     <!-- <div v-if="isLocal"> -->
     <div>
-        <el-select v-model="userRole" placeholder="请选择角色">
+        <el-select v-model="userType" placeholder="请选择角色">
             <el-option label="酒店/商家经营者" value="ptnr"></el-option>
             <el-option label="平台管理员" value="ldz"></el-option>
         </el-select>
@@ -36,10 +36,12 @@ export default {
             //     username: "",
             //     password: ""
             // },
+            userType: "",
             userRole: "",
             isLocal: false,
             nick: "",
-            userToken: ""
+            userToken: "",
+            customerId: ""
         };
     },
     mounted() {
@@ -100,7 +102,7 @@ export default {
         fakeLogin() {
             // 模拟登录
             const _this = this
-            const res = {
+            var res = {
                 errcode: 0,
                 tks: {
                     idt: {
@@ -113,8 +115,15 @@ export default {
                     u_token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTA0MzI4MzAsIm5iZiI6MTU5MDQzMjgzMCwianRpIjoiZGRhNzNlMDctMTcyOC00NDVjLTgxYmQtMzc4ZDZjMDBlN2U1IiwiaWRlbnRpdHkiOnsibmljayI6Ilx1ODQ4Ylx1NTRlNSIsInVuaW9uaWQiOiJvZy05MzFMX1ZTYktGZUVTQ3RIQjZWcmtQYkxZIiwieGN4X29wZW5pZCI6Im92RjM3NGkzendsMl82bEJLNVpXcTJCb0lWdUEiLCJkaXN0X29wZW5pZCI6Im8weWdFNWxRVm5LSHJTd3JKM0ZORnhfMUxJWFUiLCJyb2xlcyI6WyJjdXN0IiwiZGlzdCIsIm1hbmFnZSIsIm1lbWJlciJdfSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.KQ6-2KSr2-_2I5lQDx-gmgrW63l4Bd5zDfRhFl0NhIM"
                 }
             }
+            if (_this.userType === "ptnr") {
+                _this.customerId = "MLoODbqov46z07va"
+                res.tks.idt.customerId = _this.customerId
+            } else {
+                res.tks.idt.customerId = "ldz"
+            }
+            res.tks.idt.userType = _this.userType
 
-            const userInfo = {
+            var userInfo = {
                 Authorization: res.tks.u_token,
                 Idt: res.tks.idt
             }

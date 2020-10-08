@@ -1,6 +1,7 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 import Home from "../views/Home.vue"
+import store from "@/store"
 
 Vue.use(VueRouter)
 
@@ -32,9 +33,9 @@ const routes = [{
         component: () => import("@/views/backend/BackHome.vue")
     },
     {
-        path: "/back/product-hotel",
+        path: "/back/hotel-list",
         name: "BackProductHotel",
-        component: () => import("@/views/backend/product/ProductRoomBack.vue")
+        component: () => import("@/views/backend/hotel/HotelList.vue")
     },
     {
         path: "/back/vendor-product-hotel",
@@ -86,7 +87,14 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     // const toUrl = router.to
-    const token = localStorage.getItem("Authorization");
+    var token = localStorage.getItem("Authorization");
+    // try {
+    var userInfo = store.getters.getUserInfo
+    console.log("router userInfo", userInfo)
+    // } catch (err) {
+    //     console.log(err)
+    // }
+
     if (to.path === "/login") {
         next()
     } else {

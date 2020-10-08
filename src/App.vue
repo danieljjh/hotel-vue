@@ -4,7 +4,7 @@
         <router-view />
     </div>
     <div v-if="auth == true">
-        <el-row :gutter="20" v-if="userRole==='ldz'">
+        <el-row :gutter="20" v-if="userType==='ldz'">
             <el-col :span="4">
                 <BackMenu />
             </el-col>
@@ -12,7 +12,7 @@
                 <router-view />
             </el-col>
         </el-row>
-        <el-row :gutter="20" v-if="userRole==='ptnr'">
+        <el-row :gutter="20" v-if="userType==='ptnr'">
             <el-col :span="4">
                 <hotelbackmenu />
             </el-col>
@@ -41,7 +41,8 @@ export default {
     data() {
         return {
             auth: false,
-            userRole: ""
+            userRole: "",
+            userInfo: {}
         };
     },
     watch: {
@@ -57,13 +58,19 @@ export default {
         checkLogin() {
             console.log("check login");
             const _this = this;
-            const authData = localStorage.getItem("Authorization");
-            const userInfo = JSON.parse(localStorage.getItem("Idt"));
+            var authData = localStorage.getItem("Authorization");
+            var Idt = localStorage.getItem("Idt")
+            console.log("idt", Idt)
+            if (Idt !== undefined) {
+                var userInfo = JSON.parse(Idt);
+            }
             // console.log("userInfo", userInfo)
             if (authData !== null) {
                 _this.auth = true;
                 _this.userRole = userInfo.userRole;
-                console.log("userRole", _this.userRole);
+                _this.userType = userInfo.userType
+                _this.userInfo = userInfo
+                console.log("appvue userInfo", _this.userInfo);
             }
         }
     }
