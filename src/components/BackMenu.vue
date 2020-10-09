@@ -7,8 +7,6 @@
                 <i class="el-icon-shopping-bag-2"></i>
                 <span>酒店和客房</span>
             </template>
-  
-
             <el-menu-item-group>
                 <template slot="title">
                     <span>产品</span>
@@ -43,7 +41,7 @@
                 <span>商家管理</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="5-1">商家列表</el-menu-item>
+                <el-menu-item index="5-1" route="/back/customer-list">商家列表</el-menu-item>
                 <el-menu-item index="5-2" route="/back/hotel-list">酒店</el-menu-item>
                 <el-menu-item index="5-3">景区</el-menu-item>
             </el-menu-item-group>

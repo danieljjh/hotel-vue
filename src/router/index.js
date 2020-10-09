@@ -43,6 +43,11 @@ const routes = [{
         component: () => import("@/views/backend/product/VendorProductRoom.vue")
     },
     {
+        path: "/back/customer-list",
+        name: "CustomerList",
+        component: () => import("@/views/backend/customer/Customers.vue")
+    },
+    {
         path: "/hotel/partner",
         name: "PartnerlHome",
         component: () => import("@/views/hotels/partner/PartnerHome.vue")

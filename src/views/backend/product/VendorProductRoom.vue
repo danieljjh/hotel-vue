@@ -3,15 +3,18 @@
     <h2>酒店产品</h2>
     <el-row>
         <el-row :gutter="20">
-            <el-table :data="hotels" style="width: 100%">
-                <el-table-column prop="productType" label="类型" width="180">
+            <el-table :data="hotelProducts" style="width: 100%">
+                <el-table-column prop="hotelName" label="酒店名称" width="180">
                 </el-table-column>
-                <el-table-column prop="productName" label="名称" width="180">
+                <el-table-column prop="roomName" label="房型名称" width="180">
                 </el-table-column>
-                <el-table-column prop="startDate" label="startDate">
+
+                <el-table-column prop="productName" label="产品名称" width="180">
+                </el-table-column>
+                <!-- <el-table-column prop="startDate" label="startDate">
                 </el-table-column>
                 <el-table-column prop="bookingTerm" label="bookingTerm" />
-                <el-table-column prop="dailyPrice" :formatter="formatDailyPrice" label="dailyPrice" />
+                <el-table-column prop="dailyPrice" :formatter="formatDailyPrice" label="dailyPrice" /> -->
 
             </el-table>
         </el-row>
@@ -28,55 +31,12 @@ export default {
     name: "productHotel",
     data() {
         return {
-            hotels: [{
-                    productId: "uiweojwox22",
-                    productType: "客房",
-                    productName: "xxhotel 客房",
-                    roomId: "roomid-001",
-                    hotelId: "hotelId-001",
-                    startDate: "2020-09-01",
-                    endDate: "2021-08-31",
-                    dailyPrice: [
-                        200,
-                        200,
-                        200,
-                        200,
-                        200,
-                        300,
-                        300
-                    ],
-                    bookingType: "立即确认",
-                    bookingTerm: "不可取消",
-                    vendorId: "vendor-001",
-                    isActive: true
-                },
-                {
-                    productId: "uiweojwox2",
-                    productType: "客房",
-                    productName: "xxhotel 客房",
-                    roomId: "roomid-001",
-                    hotelId: "hotelId-001",
-                    startDate: "2020-09-01",
-                    endDate: "2021-08-31",
-                    dailyPrice: [
-                        200,
-                        200,
-                        200,
-                        200,
-                        200,
-                        300,
-                        300
-                    ],
-                    bookingType: "立即确认",
-                    bookingTerm: "不可取消",
-                    vendorId: "vendor-001",
-                    isActive: true
-                }
-            ]
+            hotelProducts: []
         }
     },
     mounted() {
         // this.hotels = this.loadHotelName();
+        this.getProducts()
     },
     methods: {
         formatDailyPrice(row, column, cellValue) {
@@ -94,6 +54,17 @@ export default {
             });
             // window.open(nr.href, "_blank");
             window.open(nr.href, "_self");
+        },
+        getProducts() {
+            var that = this
+            var url = "/hotels/find-hotel-product"
+            var filter = { isActive: true }
+            that.$http.post(that.$api + url, filter).then(
+                (res) => {
+                    console.log(res.data)
+                    that.hotelProducts = res.data
+                }
+            )
         }
     }
 };
