@@ -14,6 +14,7 @@
     <div>
         <el-select v-model="userType" placeholder="请选择角色">
             <el-option label="酒店/商家经营者" value="ptnr"></el-option>
+            <el-option label="旅行社" value="lxs"></el-option>
             <el-option label="平台管理员" value="ldz"></el-option>
         </el-select>
         <el-button @click="fakeLogin">模拟登录</el-button>

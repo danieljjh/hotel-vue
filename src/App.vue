@@ -4,8 +4,8 @@
         <router-view />
     </div>
     <div v-if="auth == true">
-        <el-row :gutter="20" v-if="userType==='ldz'">
-            <el-col :span="4">
+        <el-row :gutter="20" v-if="userType==='ldz' ">
+            <el-col :span="3">
                 <BackMenu />
             </el-col>
             <el-col :span="20">
@@ -13,8 +13,16 @@
             </el-col>
         </el-row>
         <el-row :gutter="20" v-if="userType==='ptnr'">
-            <el-col :span="4">
+            <el-col :span="3">
                 <hotelbackmenu />
+            </el-col>
+            <el-col :span="20">
+                <router-view />
+            </el-col>
+        </el-row>
+        <el-row :gutter="20" v-if="userType==='lxs'">
+            <el-col :span="3">
+                <trmenu />
             </el-col>
             <el-col :span="20">
                 <router-view />
@@ -31,12 +39,14 @@
 <script>
 import BackMenu from "@/components/BackMenu";
 import hotelbackmenu from "@/components/HotelMenu";
+import trmenu from "@/components/TrMenu";
 
 export default {
     name: "App",
     components: {
         BackMenu,
-        hotelbackmenu
+        hotelbackmenu,
+        trmenu
     },
     data() {
         return {

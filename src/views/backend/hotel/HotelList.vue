@@ -59,19 +59,16 @@
                 <el-row>
                     <el-button type="primary" @click="saveNewHotel">保存</el-button>
                     <el-button type="warning" @click="cancellNewHotel">取消</el-button>
-
                 </el-row>
             </el-form>
         </el-card>
     </el-row>
     <el-row class="">
         <el-row>
-
             <el-col :md="10" :lg="8">
                 <el-input placeholder="输入关键字进行过滤" v-model="filterText">
                 </el-input>
                 <h3>请选择酒店</h3>
-
                 <el-tree class="filter-tree" :data="hotelList" default-expand-all :filter-node-method="filterNode" ref="tree" @node-click="handleNodeClick">
                 </el-tree>
             </el-col>
@@ -79,9 +76,7 @@
                 <h4>房型</h4>
                 <el-row>
                     <h3>{{currentHotel.hotelName}}</h3>
-
                     <el-popover v-if="currentHotel.hotelId !== undefined " placement="bottom" title="新增房型" width="800" trigger="click">
-
                         <el-row>
                             <el-form :model="newRoom" label-width="120px">
                                 <el-row :gutter="20">

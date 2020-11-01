@@ -14,37 +14,6 @@
         </el-menu-item>
         <el-menu-item index="12-2">订单历史</el-menu-item>
     </el-submenu>
-    <el-submenu index="1">
-        <template slot="title">
-            <i class="el-icon-shopping-bag-2"></i>
-            <span>商家产品</span>
-        </template>
-        <el-menu-item-group>
-            <template slot="title">产品</template>
-            <el-menu-item index="1-1" route="/hotel/partnerhotels">酒店及客房</el-menu-item>
-            <el-menu-item index="1-2" route="/hotel/packages">套餐产品</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item index="1-3">设置价格表</el-menu-item>
-        <!-- <el-submenu index="1-4">
-            <template slot="title">会员</template>
-            <el-menu-item index="1-4-1">会员</el-menu-item>
-        </el-submenu> -->
-    </el-submenu>
-    <el-submenu index="2">
-        <template slot="title">
-            <i class="el-icon-date"></i>
-            <span>酒店订单管理</span>
-        </template>
-        <el-menu-item index="21" route="/hotel/orders">
-            <span slot="title">待确认客户预订单</span>
-        </el-menu-item>
-        <el-menu-item index="2-1">入住确认</el-menu-item>
-        <el-menu-item index="2-2">客户订单历史</el-menu-item>
-    </el-submenu>
-    <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">对账</span>
-    </el-menu-item>
     <el-submenu index="5">
         <template slot="title">
             <i class="el-icon-present"></i>
@@ -74,10 +43,10 @@
 
 <script>
 export default {
-    name: "backmenu",
+    name: "trmenu",
     data() {
         return {
-            dftOpen: ["1"]
+            dftOpen: ["12"]
         }
     },
     methods: {
