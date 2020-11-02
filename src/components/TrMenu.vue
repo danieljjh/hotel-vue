@@ -9,19 +9,19 @@
         <el-menu-item index="12-0" route="/cust/listhotel">
             酒店预订
         </el-menu-item>
-        <el-menu-item index="12-1" route="/hotel/orders">
+        <el-menu-item index="12-1" route="/hotel/open-orders">
             <span slot="title">待确认预订单</span>
         </el-menu-item>
-        <el-menu-item index="12-2">订单历史</el-menu-item>
+        <el-menu-item index="12-2" route="/hotel/orders">订单历史</el-menu-item>
     </el-submenu>
-    <el-submenu index="5">
+    <!-- <el-submenu index="5">
         <template slot="title">
             <i class="el-icon-present"></i>
             <span>会员和推广</span>
         </template>
         <el-menu-item index="5-1">会员</el-menu-item>
         <el-menu-item index="5-2">会员等级</el-menu-item>
-    </el-submenu>
+    </el-submenu> -->
     <el-submenu index="6">
         <template slot="title">
             <i class="el-icon-school"></i>

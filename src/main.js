@@ -11,6 +11,8 @@ import "./assets/style.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import QS from "qs";
+import VueMoment from "vue-moment"
+import moment from "moment-timezone"
 
 import leMarkdownEditor from "le-markdown-editor";
 
@@ -24,6 +26,9 @@ axios.defaults.headers.post["Content-Type"] = "application/json"; // 切换环�
 Vue.use(leMarkdownEditor);
 Vue.use(ElementUI);
 Vue.use(VueAxios, axios, QS);
+Vue.use(VueMoment, {
+    moment
+})
 
 new Vue({
     router,

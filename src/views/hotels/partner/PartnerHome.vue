@@ -33,20 +33,6 @@
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
-    <el-row>
-      <h3>酒店列表</h3>
-      <el-table :data="hotels" style="width: 80%">
-        <el-table-column prop="hotelName" label="酒店名称" width="180"></el-table-column>
-        <el-table-column prop="city" label="城市"></el-table-column>
-        <el-table-column prop="hotelAddress" label="地址"></el-table-column>
-        <el-table-column prop="hotelGrade" label="等级"></el-table-column>
-        <el-table-column label="操作" width="120">
-          <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="toHotelDtl(scope.row)">详情</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-row>
   </div>
 </template>
 

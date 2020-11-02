@@ -5,35 +5,11 @@
         <el-card>
             <el-form label-width="80px">
                 <el-row :gutter="20">
-                    <el-col :md="8">
-                        <el-form-item label="订单状态">
-                            <el-select v-model="orderStatus" placeholder="请选择状态">
-                                <el-option label="待确认" value="open"></el-option>
-                                <el-option label="已确认" value="confirmed"></el-option>
-                                <el-option label="已取消" value="cancel"></el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
                     <el-col :md="12">
                         <el-form-item label="酒店名称">
                             <el-input placeholder="输入关键字进行过滤" v-model="hotelName" />
                         </el-form-item>
                     </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :md="12">
-                        <el-form-item label="入住日期">
-                            <el-date-picker v-model="checkInDays" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change="selectChkInDays">
-                            </el-date-picker>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :md="12">
-                        <el-form-item label="下单日期">
-                            <el-date-picker v-model="orderDays" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" @change="selectOrdDays">
-                            </el-date-picker>
-                        </el-form-item>
-                    </el-col>
-
                 </el-row>
                 <el-row>
                     <el-button type="primary" @click="searchOrder">搜索</el-button>
@@ -80,6 +56,9 @@ export default {
             bookings: []
         }
     },
+    created() {
+        this.searchOrder()
+    },
     methods: {
         selectChkInDays(e) {
             // this.checkIn = moment(e[0]).format("YYYY-MM-DD")
@@ -101,10 +80,10 @@ export default {
           const that = this
           var user = this.$store.getters.getUserInfo
           var data = {
-            checkInRange: that.checkInRange,
-            createdOnRange: that.createdOnRange,
+            checkInRange: null,
+            createdOnRange: null,
             hotelName: that.hotelName,
-            orderStatus: that.orderStatus,
+            orderStatus: "open",
             customerId: user.customerId
           }
           const url = "/bookings/search-order"

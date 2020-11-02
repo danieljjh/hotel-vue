@@ -119,6 +119,9 @@ export default {
             if (_this.userType === "ptnr") {
                 _this.customerId = "MLoODbqov46z07va"
                 res.tks.idt.customerId = _this.customerId
+            } else if (_this.userType === "lxs") {
+                _this.customerId = "MLoODbqov46z07va"
+                res.tks.idt.customerId = _this.customerId
             } else {
                 res.tks.idt.customerId = "ldz"
             }

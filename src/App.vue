@@ -81,6 +81,9 @@ export default {
                 _this.userType = userInfo.userType
                 _this.userInfo = userInfo
                 console.log("appvue userInfo", _this.userInfo);
+                _this.$store.commit("setToken", _this.userInfo)
+                var user = _this.$store.getters.getUserInfo
+                console.log("user", user)
             }
         }
     }

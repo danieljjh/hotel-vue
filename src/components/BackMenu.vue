@@ -7,11 +7,13 @@
                 <i class="el-icon-shopping-bag-2"></i>
                 <span>酒店和客房</span>
             </template>
+            <el-menu-item index="5-2" route="/back/hotel-list">新增酒店和客房</el-menu-item>
             <el-menu-item-group>
                 <template slot="title">
                     <span>产品</span>
                 </template>
-                <el-menu-item index="1-3" route="/back/vendor-product-hotel">酒店和客房</el-menu-item>
+
+                <el-menu-item index="1-3" route="/back/vendor-product-hotel">酒店产品</el-menu-item>
                 <el-menu-item index="1-4">景区和门票</el-menu-item>
                 <el-menu-item index="1-4">套餐</el-menu-item>
             </el-menu-item-group>
@@ -26,7 +28,7 @@
                 <span>订单</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="2-1">酒店预订单</el-menu-item>
+                <el-menu-item index="2-1" route="/back/hotel/open-orders-lzd">酒店预订单</el-menu-item>
                 <el-menu-item index="2-2">预售券预约</el-menu-item>
                 <el-menu-item index="2-3">商户订单</el-menu-item>
             </el-menu-item-group>
@@ -42,7 +44,7 @@
             </template>
             <el-menu-item-group>
                 <el-menu-item index="5-1" route="/back/customer-list">商家列表</el-menu-item>
-                <el-menu-item index="5-2" route="/back/hotel-list">酒店</el-menu-item>
+
                 <el-menu-item index="5-3">景区</el-menu-item>
             </el-menu-item-group>
             <!-- <el-submenu index="1-4">

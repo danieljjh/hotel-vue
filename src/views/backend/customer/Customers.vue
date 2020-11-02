@@ -14,7 +14,13 @@
                         </el-col>
                         <el-col :md="10">
                             <el-form-item label="类型">
-                                <el-input v-model="newCustomer.customerType" />
+                                <el-select v-model="newCustomer.customerType" placeholder="请选择">
+                                    <el-option label="旅行社" value="lxs"></el-option>
+                                    <el-option label="连锁酒店" value="chainHotel"></el-option>
+                                    <el-option label="单体酒店" value="hotel"></el-option>
+                                    <el-option label="酒店代理" value="Agent"></el-option>
+                                    <!-- <el-option label="景区代理" value="beijing"></el-option> -->
+                                </el-select>
                             </el-form-item>
                         </el-col>
                     </el-row>
@@ -24,8 +30,10 @@
                         </el-form-item>
                     </el-row>
                     <el-row>
-                        <el-form-item label="角色">
-                            <el-input v-model="newCustomer.customerRoles" />
+                        <el-form-item label="权限">
+                            <el-checkbox-group v-model="newCustomer.customerRoles" size="medium">
+                                <el-checkbox v-for="role in roleOpts" :label="role" :key="role">{{role}}</el-checkbox>
+                            </el-checkbox-group>
                         </el-form-item>
                     </el-row>
                     <!-- <el-row>
@@ -85,12 +93,20 @@
 </template>
 
 <script>
+const roleOpts = ["customer", "vendor"]
+
 export default {
     name: "customers",
     data() {
         return {
+            roleOpts: roleOpts,
             customers: [],
-            newCustomer: {},
+            newCustomer: {
+                customerName: "",
+                customerType: "",
+                contactPhone: "",
+                customerRoles: []
+            },
             invUrl: ""
         }
     },
@@ -113,6 +129,14 @@ export default {
         },
         editCustomer(row) {
             console.log("cust", row)
+            var nr = this.$router.resolve({
+                name: "CustomerInfo",
+                query: {
+                    custId: row.customerId
+                }
+            });
+            // window.open(nr.href, "_blank");
+            window.open(nr.href, "_self");
         },
         inviteQR(row) {
             console.log("invite", row)
@@ -133,8 +157,7 @@ export default {
         },
         savenewCustomer() {
             var that = this
-                       var url = "/user/create-customer"
-            that.newCustomer.customerRoles = that.newCustomer.customerRoles.split(",")
+            var url = "/user/create-customer"
             that.$http.post(that.$api + url, that.newCustomer).then(
                 (res) => {
                     console.log("customers", res.data)

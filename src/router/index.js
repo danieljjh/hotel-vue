@@ -48,6 +48,11 @@ const routes = [{
         component: () => import("@/views/backend/customer/Customers.vue")
     },
     {
+        path: "/back/customer-info",
+        name: "CustomerInfo",
+        component: () => import("@/views/backend/customer/CustomerInfo.vue")
+    },
+    {
         path: "/hotel/partner",
         name: "PartnerlHome",
         component: () => import("@/views/hotels/partner/PartnerHome.vue")
@@ -71,6 +76,16 @@ const routes = [{
         path: "/hotel/orders",
         name: "HotelOrders",
         component: () => import("@/views/hotels/booking/HotelOrders.vue")
+    },
+    {
+        path: "/hotel/open-orders",
+        name: "HotelOrdersOpen",
+        component: () => import("@/views/hotels/booking/HotelOrdersOpen.vue")
+    },
+    {
+        path: "/back/hotel/open-orders-lzd",
+        name: "HotelOrdersOpenLdz",
+        component: () => import("@/views/backend/booking/HotelOrdersOpen.vue")
     },
     {
         path: "/hotel/packages",
