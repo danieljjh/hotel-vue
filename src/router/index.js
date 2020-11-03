@@ -63,6 +63,11 @@ const routes = [{
         component: () => import("@/views/hotels/partner/PartnerHotels.vue")
     },
     {
+        path: "/hotel/hotel-details",
+        name: "hotelDetails",
+        component: () => import("@/views/backend/hotel/HotelDetail.vue")
+    },
+    {
         path: "/hotel/home",
         name: "HotelHome",
         component: () => import("@/views/hotels/product/HotelInfo.vue")

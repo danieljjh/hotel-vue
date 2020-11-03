@@ -24,7 +24,7 @@
             <el-input v-model="partner.contactPhone"></el-input>
         </el-form-item>
         <el-form-item label="权限">
-            <el-checkbox-group v-model="partner.customerRoles" size="medium">
+            <el-checkbox-group v-model="customerRoles" size="medium">
                 <el-checkbox v-for="role in roleOpts" :label="role" :key="role">{{role}}</el-checkbox>
             </el-checkbox-group>
         </el-form-item>
@@ -43,7 +43,8 @@ export default {
     data() {
         return {
             roleOpts: roleOpts,
-            partner: {}
+            partner: {},
+            customerRoles: []
         }
     },
     created() {
@@ -75,6 +76,7 @@ export default {
                 (res) => {
                     console.log("customer", res.data)
                     that.partner = res.data
+                    that.customerRoles = res.data.customerRoles
                 }
             )
         }
