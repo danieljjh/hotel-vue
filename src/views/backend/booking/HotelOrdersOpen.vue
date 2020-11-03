@@ -18,24 +18,24 @@
         </el-card>
     </el-row>
     <el-row>
-        <el-table :data="bookings" style="width: 100%">
-            <el-table-column prop="orderStatus" label="订单状态" width="180">
+        <el-table :data="bookings" :default-sort = "{prop: 'createdOn', order: 'descending'}" style="width: 100%">
+            <el-table-column prop="createdOn" :formatter="formatDate" width="120" label="下单日期" sortable />
+            <el-table-column prop="orderStatus" label="订单状态" width="120">
             </el-table-column>
             <el-table-column prop="travelNo" label="团号" width="180">
             </el-table-column>
             <el-table-column prop="orderId" label="编号">
             </el-table-column>
             <el-table-column prop="orderSummary" label="项目" />
-            <el-table-column prop="checkIn" label="入住">
+            <el-table-column prop="checkIn" sortable width="120"  label="入住">
             </el-table-column>
-            <el-table-column prop="checkOut" label="离店">
+            <el-table-column prop="checkOut" width="120"  label="离店">
             </el-table-column>
             <el-table-column prop="qty" label="房间数量">
             </el-table-column>
             <el-table-column prop="orderTotal" label="总金额" />
-            <el-table-column prop="custName" label="客户" />
-            <el-table-column prop="vendorName" label="供应商" />
-
+            <el-table-column prop="custName" sortable label="客户" />
+            <el-table-column prop="vendorName" sortable label="供应商" />
         </el-table>
     </el-row>
 
@@ -62,6 +62,9 @@ export default {
         this.searchOrder()
     },
     methods: {
+        formatDate(row) {
+            return row.createdOn.slice(0, 10)
+        },
         selectChkInDays(e) {
             // this.checkIn = moment(e[0]).format("YYYY-MM-DD")
             // this.checkOut = moment(e[1]).format("YYYY-MM-DD")

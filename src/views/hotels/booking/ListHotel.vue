@@ -42,8 +42,8 @@
                         <!-- <el-button type="primary" size="mini" @click="toBooking(scope.row)">选择</el-button> -->
                         <el-popover trigger="click" placement="left">
                             <div class="container">
-                                 <h3>酒店 {{currProduct.hotelName}}</h3>
-                                 <h4>房型 {{currProduct.roomName}}</h4>
+                                <h3>酒店 {{currProduct.hotelName}}</h3>
+                                <h4>房型 {{currProduct.roomName}}</h4>
 
                             </div>
                             <el-col :md="24">
@@ -73,11 +73,11 @@
                                         </el-col>
                                     </el-row>
                                     <el-row>
-                                        <el-col :md="8">
+                                        <!-- <el-col :md="8">
                                             <el-form-item label="单价">
                                                 <el-input v-model.number="currProduct.bookingMaxDays" disabled type="number" />
                                             </el-form-item>
-                                        </el-col>
+                                        </el-col> -->
                                         <el-col :md="8">
                                             <el-form-item label="总价">
                                                 <el-input v-model.number="orderTotal" disabled type="number" />
@@ -87,7 +87,7 @@
                                     <el-row>
                                         <el-col :md="8">
                                             <el-form-item label="旅行团编号">
-                                                <el-input v-model="trNo" type="text" />
+                                                <el-input v-model="trNo" type="text" @change="trNoChange" />
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="8">
@@ -131,28 +131,7 @@ export default {
             trNo: "",
             orderTotal: 0,
             notes: "",
-            hotelProduct: [{
-                hotelName: "qqq",
-                roomName: "twin bed2",
-                productName: "ttt",
-                productDesc: "ttt",
-                productId: "DkNdV19Rsp45zKrn",
-                price: {
-                    dayprice: {
-                        "2020-10-11": 220,
-                        "2020-10-12": 0,
-                        "2020-10-13": 220,
-                        "2020-10-14": 220,
-                        "2020-10-15": 220,
-                        "2020-10-16": 220,
-                        "2020-10-17": 220,
-                        "2020-10-18": 220,
-                        "2020-10-19": 0,
-                        "2020-10-20": 220
-                    },
-                    total: 1760
-                }
-            }]
+            hotelProduct: []
         }
     },
     created() {
@@ -192,22 +171,46 @@ export default {
         toBooking: function (row) {
             const that = this
             that.currProduct = row
+            that.orderTotal = that.qtys * row.price.total
+            console.log("to booking", row, that.orderTotal, that.qtys)
+        },
+        trNoChange(e) {
+            this.trNo = e
         },
         qtyChange(e) {
             const that = this
             that.qtys = e
-            var total = that.qtys * that.currProduct.price.total
-            that.total = total
-            console.log("qtyChange change", e, total)
+            var orderTotal = that.qtys * that.currProduct.price.total
+            that.orderTotal = orderTotal
+            console.log("qtyChange change", e, orderTotal)
         },
         saveOrder() {
             const that = this
+            // var total = that.qtys * that.currProduct.price.total
             var order = {
                 customerId: that.user.customerId,
                 productId: that.currProduct.productId,
+                checkIn: that.checkIn,
+                checkOut: that.checkOut,
                 qty: that.qtys,
-                orderTotal: that.total
+                productType: "hotel",
+                travelNo: that.trNo
             }
+            const url = that.$api + "/bookings/create-order"
+            that.$http.post(url, order).then(
+                res => {
+                    console.log("new order", res.data)
+                    this.$alert("订单已创建，可在待确认订单中追踪进展", "订单创建", {
+                        confirmButtonText: "确定",
+                        callback: action => {
+                            // this.$message({
+                            //     type: "info",
+                            //     message: `action: ${action}`
+                            // });
+                        }
+                    });
+                }
+            )
             console.log("order", order)
         }
     }
