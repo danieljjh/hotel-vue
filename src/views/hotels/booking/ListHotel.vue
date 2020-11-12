@@ -146,11 +146,11 @@ export default {
         },
         searchProduct() {
             const that = this
-            const filters = that.filterText
+            const filters = that.hotelName
             console.log(filters, that.$api, this.days)
             const url = "/hotels/search-hotel-product-day"
             var data = {
-                filterText: "qq",
+                filterText: that.hotelName,
                 start: this.checkIn,
                 end: this.checkOut,
                 qty: 1

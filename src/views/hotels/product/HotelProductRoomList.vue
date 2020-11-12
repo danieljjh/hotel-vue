@@ -1,6 +1,6 @@
 <template>
 <div class="container ">
-    <h1>自营酒店产品列表</h1>
+    <h1>酒店产品列表</h1>
     <el-row>
         <el-button type="primary" @click="getHotels">新增酒店产品</el-button>
         <el-card class="box-card box1" v-if="showNewProd">
@@ -39,79 +39,79 @@
                     </el-row>
                     <el-row>
                         <h5>新增产品</h5>
-                    <el-form :model="hotelProduct" label-width="120px">
-                        <el-row :gutter="20">
-                            <el-col :md="10">
-                                <el-form-item label="酒店">
-                                    <el-input v-model="hotelProduct.hotelName" :disabled="true" />
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="10">
-                                <el-form-item label="客房">
-                                    <el-input v-model="hotelProduct.roomName" :disabled="true" />
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row :gutter="20">
-                            <el-col :md="10">
-                                <el-form-item label="产品名称">
-                                    <el-input v-model="hotelProduct.productName" />
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="10">
+                        <el-form :model="hotelProduct" label-width="120px">
+                            <el-row :gutter="20">
+                                <el-col :md="10">
+                                    <el-form-item label="酒店">
+                                        <el-input v-model="hotelProduct.hotelName" :disabled="true" />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="10">
+                                    <el-form-item label="客房">
+                                        <el-input v-model="hotelProduct.roomName" :disabled="true" />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="10">
+                                    <el-form-item label="产品名称">
+                                        <el-input v-model="hotelProduct.productName" />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="10">
 
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-form-item label="产品说明">
-                                <el-input v-model="hotelProduct.productDesc" />
-                            </el-form-item>
-                        </el-row>
-                        <el-row :gutter="20">
-                            <el-col :md="8">
-                                <el-form-item label="提前预订天数">
-                                    <el-input v-model.number="hotelProduct.bookingLeadDays" type="number" />
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-form-item label="产品说明">
+                                    <el-input v-model="hotelProduct.productDesc" />
                                 </el-form-item>
-                            </el-col>
-                            <el-col :md="8">
-                                <el-form-item label="最小预订天数">
-                                    <el-input v-model.number="hotelProduct.bookingMinDays" type="number" />
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="8">
-                                <el-form-item label="最大预订天数">
-                                    <el-input v-model.number="hotelProduct.bookingMaxDays" type="number" />
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row :gutter="20">
-                            <el-col :md="8">
-                                <el-form-item label="付款方式">
-                                    <el-input v-model="hotelProduct.payTerm" />
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="8">
+                                    <el-form-item label="提前预订天数">
+                                        <el-input v-model.number="hotelProduct.bookingLeadDays" type="number" />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="最小预订天数">
+                                        <el-input v-model.number="hotelProduct.bookingMinDays" type="number" />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="最大预订天数">
+                                        <el-input v-model.number="hotelProduct.bookingMaxDays" type="number" />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="8">
+                                    <el-form-item label="付款方式">
+                                        <el-input v-model="hotelProduct.payTerm" />
 
-                                    <!-- <el-radio-group v-model="hotelProduct.payTerm">
+                                        <!-- <el-radio-group v-model="hotelProduct.payTerm">
                                 <el-radio label="预付"></el-radio>
                                 <el-radio label="到店支付"></el-radio>
                             </el-radio-group> -->
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="8">
-                                <el-form-item label="取消条款">
-                                    <el-input v-model="hotelProduct.cancelTerm" />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="取消条款">
+                                        <el-input v-model="hotelProduct.cancelTerm" />
 
-                                    <!-- <el-radio-group v-model="hotelProduct.cancelTerm">
+                                        <!-- <el-radio-group v-model="hotelProduct.cancelTerm">
                                 <el-radio label="不可取消"></el-radio>
                                 <el-radio label="提前2天取消"></el-radio>
                             </el-radio-group> -->
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-button type="primary" @click="saveProduct">保存</el-button>
-                            <el-button type="warning" @click="cancell">取消</el-button>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-button type="primary" @click="saveProduct">保存</el-button>
+                                <el-button type="warning" @click="cancell">取消</el-button>
 
-                        </el-row>
-                    </el-form>
+                            </el-row>
+                        </el-form>
                     </el-row>
 
                 </el-col>
@@ -143,7 +143,7 @@ export default {
     name: "ptnrhotels",
     data() {
         return {
-            customerId: "ldz",
+            customerId: "",
             showNewProd: false,
             filterText: "",
             hotelProducts: [],
@@ -164,6 +164,12 @@ export default {
         }
     },
     created() {
+        var Idt = localStorage.getItem("Idt")
+        if (Idt !== undefined) {
+            var userInfo = JSON.parse(Idt);
+        }
+        // this.getHotels()
+        this.customerId = userInfo.customerId
         this.getHotelProducts(this.customerId)
     },
     methods: {
@@ -264,6 +270,13 @@ export default {
                     var newHotelProd = res.data
                     newHotelProd.hotelName = that.hotelProduct.hotelName
                     that.hotelProducts.push(newHotelProd)
+                    this.$alert("已新建酒店产品, 请在下面表格里选择产品，编辑产品价格", "创建酒店产品", {
+                        confirmButtonText: "确定",
+                        callback: action => {
+                            that.hotelProduct = {}
+                            that.showNewProd = false
+                        }
+                    });
                 }
             )
         },

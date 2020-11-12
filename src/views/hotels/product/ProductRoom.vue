@@ -34,7 +34,7 @@
                 <el-row :gutter="20">
                     <el-col :md="10">
                         <el-form-item label="酒店">
-                            <el-input v-model="hotelProduct.hotelName" :disabled="true"/>
+                            <el-input v-model="hotelProduct.hotelName" :disabled="true" />
                         </el-form-item>
                     </el-col>
                     <el-col :md="10">
@@ -164,8 +164,8 @@
             <el-table :data="pricePlan" style="width: 100%">
                 <el-table-column prop="start" label="开始日期" width="80"></el-table-column>
                 <el-table-column prop="end" label="截止日期" width="80"></el-table-column>
-                <el-table-column prop="minPrice" label="单价"></el-table-column>
-                <el-table-column prop="priceByDay" label="单价"></el-table-column>
+                <!-- <el-table-column prop="minPrice" label="单价"></el-table-column> -->
+                <el-table-column prop="priceByDay" :formatter="dayPriceList" label="单价"></el-table-column>
                 <el-table-column label="操作" width="60">
                     <template slot-scope="scope">
                         <el-popover placement="bottom" title="价格" width="700" height="600" offset="0" trigger="click">
@@ -191,6 +191,7 @@
                                 </el-row>
                                 <!-- <el-popover placement="right" width="400" trigger="click"> -->
                                 <el-row>
+                                    <p>例如 1 2 3 ...  空格分隔 周天</p>
                                     <el-col :md="12">
                                         <el-form-item label="周天数">
                                             <el-input v-model="weekDay" />
@@ -203,14 +204,14 @@
                                     </el-col>
                                 </el-row>
                                 <el-row>
-                                    <el-button type="warning" @click="addWprice()">添加/更新价格</el-button>
+                                    <el-button type="warning" @click="addWpriceNew()">添加/更新价格</el-button>
 
                                     <!-- {{articles}} -->
                                 </el-row>
                                 <!-- </el-popover> -->
                                 <el-divider></el-divider>
 
-                                <el-button type="primary" @click="savePricePlan()">保存价格表</el-button>
+                                <el-button type="primary" @click="savePricePlan">保存价格表</el-button>
                             </el-form>
                             <el-button slot="reference" class="name-wrapper" type="primary" size="mini" @click="selectPrice(scope.row)">修改</el-button>
 
@@ -227,6 +228,7 @@
 </template>
 
 <script>
+// import { stringify } from "qs";
 export default {
     name: "productHotel",
     data() {
@@ -370,33 +372,24 @@ export default {
             }
             this.priceLine.weekPrice = weekPrice
         },
-        addWprice() {
-            const _this = this
-            var days = _this.weekDay.replace(/[^0-9]/g, " ").split(" ")
-            var wprice = _this.priceLine.weekPrice
-            console.log("reg", days)
-            if (days.length === 1) {
-                var d = parseInt(days) - 1
-                wprice[d].weekDay = d + 1
-                wprice[d].price = parseInt(_this.dayPrice)
-            } else {
-                var weekDay = days
-                for (var x in weekDay) {
-                    var i = parseInt(weekDay[x]) - 1
-                    console.log("x : i", x, i)
-                    if (x !== "" && i >= 0 && i < 7) {
-                        wprice[i].weekDay = i + 1
-                        wprice[i].price = parseInt(_this.dayPrice)
-                    }
-                }
-                _this.priceLine.weekPrice = wprice
+        dayPriceList(row) {
+            var r = ""
+            for (const k in row.dayPrice) {
+                var d = parseInt(k)
+                var day = (d + 1).toString()
+                console.log(k, d, day)
+                r += "周" + day + ": " + row.dayPrice[d] + "  "
             }
+            return r
         },
         addWpriceNew() {
             const _this = this
             var days = _this.weekDay.replace(/[^0-9]/g, " ").split(" ")
+            // var dd = _this.weekDay.match(/^([1-7]\d)/g)
+            // var days = dd.join("")
+            // console.log("dd", dd, days)
             var wprice = _this.priceLine.weekPrice
-            console.log("reg", days)
+            console.log("reg", days, days.length)
             if (days.length === 1) {
                 var d = parseInt(days) - 1
                 wprice[d].weekDay = d + 1
@@ -406,10 +399,10 @@ export default {
                 console.log("weekDay", weekDay)
                 for (var i = 0; i < weekDay.length; i++) {
                     var x = parseInt(weekDay[i])
-                    console.log("x : i", x, i)
-                    if (x !== "" && x >= 0 && x < 7) {
+                    if (x !== "" && x >= 0 && x <= 7) {
                         wprice[x - 1].weekDay = x
                         wprice[x - 1].price = parseInt(_this.dayPrice)
+                        console.log("x : i", x, i)
                     }
                 }
             }
@@ -440,6 +433,13 @@ export default {
                     if (newPriceLine.id === undefined) {
                         this.pricePlan.push(res.data)
                     }
+                    this.$alert("已新保存产品价格表", "保存产品价格", {
+                        confirmButtonText: "确定",
+                        callback: action => {
+                            // that.hotelProduct = {}
+                            // that.showNewProd = false
+                        }
+                    });
                 }
             )
 
