@@ -175,7 +175,12 @@ export default {
         },
         createHotels() {
             var that = this
-            that.createNew = true
+            // that.createNew = true
+                var nr = that.$router.resolve({
+                name: "hotelDetails"
+            });
+            // window.open(nr.href, "_blank");
+            window.open(nr.href, "_blank");
             console.log("create new hotel")
         },
         cancellNewHotel() {

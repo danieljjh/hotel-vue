@@ -123,17 +123,13 @@ router.beforeEach((to, from, next) => {
     // try {
     var userInfo = store.getters.getUserInfo
     console.log("router userInfo", userInfo)
-    // } catch (err) {
-    //     console.log(err)
-    // }
-
     if (to.path === "/login") {
         next()
     } else {
         // let token = localStorage.getItem("Authorization");
-        // console.log('token', token)
+        // console.log("token", token)
         if (token === undefined || token === null) {
-            // console.log('no token', token)
+            console.log("'no token to login")
             next("/login");
         } else {
             // console.log('get token', token)

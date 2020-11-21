@@ -5,7 +5,7 @@
     </div>
     <div v-if="auth == true">
         <el-row :gutter="20" v-if="userType==='ldz' ">
-            <el-col :span="3">
+            <el-col :span="4">
                 <BackMenu />
             </el-col>
             <el-col :span="20">
@@ -13,7 +13,7 @@
             </el-col>
         </el-row>
         <el-row :gutter="20" v-if="userType==='ptnr'">
-            <el-col :span="3">
+            <el-col :span="4">
                 <hotelbackmenu />
             </el-col>
             <el-col :span="20">
@@ -21,7 +21,7 @@
             </el-col>
         </el-row>
         <el-row :gutter="20" v-if="userType==='lxs'">
-            <el-col :span="3">
+            <el-col :span="4">
                 <trmenu />
             </el-col>
             <el-col :span="20">
@@ -52,7 +52,8 @@ export default {
         return {
             auth: false,
             userRole: "",
-            userInfo: {}
+            userInfo: {},
+            userType: ""
         };
     },
     watch: {
@@ -61,29 +62,40 @@ export default {
         }
     },
     created() {
-        console.log("check login");
         this.checkLogin();
     },
     methods: {
         checkLogin() {
             console.log("check login");
             const _this = this;
-            var authData = localStorage.getItem("Authorization");
-            var Idt = localStorage.getItem("Idt")
-            console.log("idt", Idt)
-            if (Idt !== undefined) {
-                var userInfo = JSON.parse(Idt);
+            try {
+                var storeUser = _this.$store.getters.getUserInfo
+                var token = _this.$store.getters.getAuthToken
+            } catch (err) {
+                localStorage.removeItem("Authorization");
+                localStorage.removeItem("Idt");
+                this.$router.push("/login");
             }
-            // console.log("userInfo", userInfo)
-            if (authData !== null) {
+
+            console.log("app.vue store data", storeUser, token)
+            if (storeUser !== null) {
+                console.log("storeUser", storeUser)
                 _this.auth = true;
-                _this.userRole = userInfo.userRole;
-                _this.userType = userInfo.userType
-                _this.userInfo = userInfo
-                console.log("appvue userInfo", _this.userInfo);
-                _this.$store.commit("setToken", _this.userInfo)
-                var user = _this.$store.getters.getUserInfo
-                console.log("user", user)
+                try {
+                    _this.userRole = storeUser.idt.userRole
+                    _this.userType = storeUser.idt.userType
+                    _this.userInfo = storeUser.idt
+                    var userData = {
+                        Authorization: token,
+                        Idt: storeUser.Idt
+                    }
+                    console.log("appvue userData", userData);
+                    console.log("app vue", _this.userType)
+                } catch (err) {
+                    localStorage.removeItem("Authorization");
+                    localStorage.removeItem("Idt");
+                    this.$router.push("/login");
+                }
             }
         }
     }

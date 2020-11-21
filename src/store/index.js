@@ -9,13 +9,12 @@ export default new Vuex.Store({
     state: {
         // 存储token
         Authorization: localStorage.getItem("Authorization") ? localStorage.getItem("Authorization") : "",
-        user: localStorage.getItem("Idt") ? JSON.parse(localStorage.getItem("Idt")) : {}
+        user: localStorage.getItem("Idt") ? JSON.parse(localStorage.getItem("Idt")) : null
     },
     mutations: {
-        // 修改token，并将token存入localStorage
         setToken(state, user) {
             state.Authorization = user.Authorization
-            state.user = user
+            state.user = user.Idt
         }
     },
     getters: {
@@ -23,7 +22,7 @@ export default new Vuex.Store({
             return state.Authorization
         },
         getUserInfo: state => {
-            console.log("store state.userIdt", state.user)
+            // console.log("store state.userIdt", state.user)
             return state.user
         }
     },

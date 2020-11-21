@@ -1,8 +1,8 @@
 const Timestamp = new Date().getTime();
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === "production" ?
-        "/back/" : "/",
+    publicPath: process.env.NODE_ENV === "production"
+        ? "/back/" : "/",
     outputDir: "dist",
     // crossorigin: "anonymous",
     devServer: {
@@ -13,6 +13,7 @@ module.exports = {
             }
         }
     },
+    lintOnSave: process.env.NODE_ENV !== "production",
     chainWebpack: config => {
         if (process.env.NODE_ENV === "production") {
             // 给js和css配置版本号
