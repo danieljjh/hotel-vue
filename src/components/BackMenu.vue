@@ -2,6 +2,7 @@
 <div>
     <el-menu default-active="1" :default-openeds="dftOpen" class="el-menu-vertical-demo menu" router>
         <h4>管理后台</h4>
+        <p>{{userType}}</p>
         <el-submenu index="1">
             <template slot="title">
                 <i class="el-icon-shopping-bag-2"></i>
@@ -14,6 +15,7 @@
                 </template>
 
                 <el-menu-item index="1-3" route="/back/vendor-product-hotel">酒店产品</el-menu-item>
+ <el-menu-item index="1-3-1" route="/hotel/partnerhotels">自营酒店产品</el-menu-item>
                 <el-menu-item index="1-4">景区和门票</el-menu-item>
                 <el-menu-item index="1-4">套餐</el-menu-item>
             </el-menu-item-group>
@@ -81,7 +83,8 @@ export default {
     name: "backmenu",
     data() {
         return {
-            dftOpen: ["1"]
+            dftOpen: ["1"],
+            userType: ""
         }
     },
     methods: {

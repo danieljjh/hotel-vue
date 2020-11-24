@@ -164,13 +164,19 @@ export default {
         }
     },
     created() {
-        var Idt = localStorage.getItem("Idt")
-        if (Idt !== undefined) {
-            var userInfo = JSON.parse(Idt);
-        }
-        // this.getHotels()
-        this.customerId = userInfo.customerId
+        var storeUser = this.$store.getters.getUserInfo
+        console.log("storeUser", storeUser)
+        this.customerId = storeUser.idt.customerId
         this.getHotelProducts(this.customerId)
+        // var Idt = localStorage.getItem("Idt")
+        // console.log("Idt", Idt)
+        // if (Idt !== undefined) {
+        //     var userInfo = JSON.parse(Idt).idt;
+        //     this.customerId = userInfo.customerId
+        //     this.getHotelProducts(this.customerId)
+        //     console.log("userInfo", userInfo, this.customerId)
+        // }
+        // this.getHotels()
     },
     methods: {
         getHotelProducts(custId) {

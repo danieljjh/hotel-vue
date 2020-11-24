@@ -37,10 +37,15 @@ export default {
     },
     mounted() {
         var _this = this
-        _this.wechatHandleClick()
+        // _this.wechatHandleClick()
         if (process.env.NODE_ENV === "development") {
             _this.isLocal = true
         }
+        localStorage.removeItem("http://localhost:8080");
+        localStorage.removeItem("https://hotel.i568.me");
+
+        // localStorage.removeItem("Authorization");
+        // localStorage.removeItem("Idt");
         console.log("query code", this.$route.query.code, this.$route.from)
         try {
             var c = this.$route.query.code
@@ -71,6 +76,7 @@ export default {
                                 Authorization: res.data.tks.u_token,
                                 Idt: res.data.tks.idt
                             }
+                            console.log("userInfo", userInfo)
                             _this.nick = userInfo.Idt.name
                             localStorage.setItem("Authorization", JSON.stringify(userInfo.Authorization))
                             localStorage.setItem("Idt", JSON.stringify(userInfo.Idt))
@@ -105,15 +111,15 @@ export default {
                 }
             }
             if (_this.userType === "ptnr") {
-                _this.customerId = "MLoODbqov46z07va"
+                _this.customerId = "waZpYQOysD4MyJjX"
                 res.tks.idt.customerId = _this.customerId
             } else if (_this.userType === "lxs") {
-                _this.customerId = "MLoODbqov46z07va"
+                _this.customerId = "p7DW34K2sy1zwLgo"
                 res.tks.idt.customerId = _this.customerId
             } else {
-                res.tks.idt.customerId = "ldz"
+                res.tks.idt.customerId = "pwBM0QjxcW4JVErv"
             }
-            const userInfo = {
+            var userInfo = {
                 Authorization: res.tks.u_token,
                 Idt: res.tks
             }

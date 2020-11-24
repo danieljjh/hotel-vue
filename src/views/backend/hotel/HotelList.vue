@@ -68,6 +68,12 @@
     <el-row class="container">
         <el-row>
             <el-table :data="hotelList" style="width: 100%">
+                <el-table-column label="图片">
+                    <template slot-scope="scope">
+                        <img :src="scope.row.hotelThumb" width="80" v-if="scope.row.hotelThumb!==null"/>
+                        <img :src="dfltThumb" width="80" v-if="scope.row.hotelThumb===null"/>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="hotelName" label="酒店" width="180"></el-table-column>
                 <el-table-column prop="hotelAddress" label="地址" width="180"></el-table-column>
                 <el-table-column prop="city" label="城市" width="180" />
@@ -76,10 +82,19 @@
                 <el-table-column label="操作" width="160">
                     <template slot-scope="scope">
                         <el-button type="primary" size="mini" @click="editHotel(scope.row)">修改</el-button>
-
+                        <el-button type="danger" size="mini" @click="HotelDelete(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
+        </el-row>
+        <el-row>
+            <el-dialog title="警告" :visible.sync="dialogVisible" width="30%">
+                <span>你将要删除 酒店 {{hotelToDel.hotelName}}, 及所有的相关产品，点击确定，继续。 或取消，则不删除</span>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="deleteHotel">确 定</el-button>
+                </span>
+            </el-dialog>
         </el-row>
     </el-row>
 </div>
@@ -90,6 +105,7 @@ export default {
     name: "hotellists",
     data() {
         return {
+            dfltThumb: require("@/assets/logo.png"),
             newHotel: {},
             newRoom: {},
             currRoom: {},
@@ -99,7 +115,9 @@ export default {
             filterText: "",
             currentHotel: {},
             addRoom: false,
-            chgRoom: false
+            chgRoom: false,
+            dialogVisible: false,
+            hotelToDel: {}
         }
     },
     watch: {
@@ -176,7 +194,7 @@ export default {
         createHotels() {
             var that = this
             // that.createNew = true
-                var nr = that.$router.resolve({
+            var nr = that.$router.resolve({
                 name: "hotelDetails"
             });
             // window.open(nr.href, "_blank");
@@ -185,6 +203,27 @@ export default {
         },
         cancellNewHotel() {
             this.createNew = false
+        },
+        HotelDelete(row) {
+            console.log(row, row.hotelId)
+            this.dialogVisible = true
+            this.hotelToDel = row
+        },
+        deleteHotel() {
+            const hotelToDel = this.hotelToDel
+            const url = this.$api + "/hotels/hotel-remove"
+            this.$http.get(url, {
+                params: {
+                    hotelId: hotelToDel.hotelId,
+                    status: "toDel"
+                }
+            }).then(
+                (res) => {
+                    console.log(res)
+                    this.dialogVisible = false
+                    this.$router.go()
+                }
+            )
         },
         saveNewHotel() {
             const that = this
@@ -203,6 +242,7 @@ export default {
                 }
             )
         },
+
         saveNewRoom() {
             const that = this
             const url = this.$api + "/hotels/create-room"

@@ -1,8 +1,8 @@
 <template>
 <div class="container ">
-    <h1>自营酒店产品列表</h1>
+    <h1>所有酒店产品列表</h1>
     <el-row>
-        <el-button type="primary" @click="getHotels">新增酒店产品</el-button>
+        <!-- <el-button type="primary" @click="getHotels">新增酒店产品</el-button> -->
         <el-card class="box-card box1" v-if="showNewProd">
             <el-row class="" :gutter="20">
                 <el-col :span="6">
@@ -121,6 +121,8 @@
     </el-row>
     <el-row>
         <el-table :data="hotelProducts" style="width: 100%">
+            <el-table-column prop="customerName" label="供应商" width="180"></el-table-column>
+
             <el-table-column prop="hotelName" label="酒店" width="180"></el-table-column>
             <el-table-column prop="roomlName" label="房型" width="180"></el-table-column>
 
@@ -128,7 +130,7 @@
             <el-table-column prop="productDesc" label="说明" width="180"></el-table-column>
             <el-table-column label="操作" width="160">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="mini" @click="editRoomProd(scope.row)">修改</el-button>
+                    <el-button type="primary" size="mini" @click="viewRoomProd(scope.row)">详情</el-button>
 
                 </template>
             </el-table-column>
@@ -170,7 +172,7 @@ export default {
         getHotelProducts(custId) {
             var that = this
             that.$http.post(that.$api + "/hotels/find-hotel-product", {
-                customerId: custId
+                isActive: true
             }).then(
                 (res) => {
                     console.log("products", res.data)
@@ -178,11 +180,11 @@ export default {
                 }
             )
         },
-        editRoomProd(e) {
+        viewRoomProd(e) {
             console.log(e)
             // var itemCode = e.itemCode;
             var nr = this.$router.resolve({
-                name: "hotelproduct",
+                name: "hotelproductView",
                 query: {
                     type: "product",
                     strId: e.productId

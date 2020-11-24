@@ -102,6 +102,11 @@ const routes = [{
         name: "hotelproduct",
         component: () => import("@/views/hotels/product/ProductRoom.vue")
     },
+    {
+        path: "/hotel/product-hotel-view",
+        name: "hotelproductView",
+        component: () => import("@/views/backend/product/ProductRoomView.vue")
+    },
     // customer booking
 
     {

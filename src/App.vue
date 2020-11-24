@@ -4,7 +4,7 @@
         <router-view />
     </div>
     <div v-if="auth == true">
-        <el-row :gutter="20" v-if="userType==='ldz' ">
+        <el-row :gutter="20" v-if="userType=='ldz' ">
             <el-col :span="4">
                 <BackMenu />
             </el-col>
@@ -28,6 +28,7 @@
                 <router-view />
             </el-col>
         </el-row>
+        <p>{{userInfo.customerId}}</p>
     </div>
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -87,10 +88,10 @@ export default {
                     _this.userInfo = storeUser.idt
                     var userData = {
                         Authorization: token,
-                        Idt: storeUser.Idt
+                        Idt: storeUser
                     }
                     console.log("appvue userData", userData);
-                    console.log("app vue", _this.userType)
+                    console.log("app vue userType", storeUser.idt.userType)
                 } catch (err) {
                     localStorage.removeItem("Authorization");
                     localStorage.removeItem("Idt");

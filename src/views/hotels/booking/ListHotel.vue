@@ -51,12 +51,12 @@
                                     <el-row :gutter="10">
                                         <el-col :md="12">
                                             <el-form-item label="付款方式">
-                                                <el-input v-model="currProduct.payTerm" />
+                                                <el-input v-model="payTerm" disabled />
                                             </el-form-item>
                                         </el-col>
                                         <el-col :md="12">
                                             <el-form-item label="取消条款">
-                                                <el-input v-model="currProduct.cancelTerm" />
+                                                <el-input v-model="cancelTerm" disabled />
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
@@ -126,6 +126,8 @@ export default {
             days: {},
             checkIn: "",
             checkOut: "",
+            cancelTerm: "",
+            payTerm: "",
             currProduct: {},
             qtys: 1,
             trNo: "",
@@ -136,7 +138,8 @@ export default {
     },
     created() {
         var user = this.$store.getters.getUserInfo
-        this.user = user
+        this.user = user.idt
+        console.log("user", user)
     },
     methods: {
         selectDays(e) {
@@ -172,6 +175,14 @@ export default {
             const that = this
             that.currProduct = row
             that.orderTotal = that.qtys * row.price.total
+            const url = that.$api + "/hotels/get-hotel-product"
+            that.$http.get(url, { params: { productId: row.productId } }).then(
+                (res) => {
+                    console.log(res)
+                    that.cancelTerm = res.data.product.cancelTerm
+                    that.payTerm = res.data.product.payTerm
+                }
+            )
             console.log("to booking", row, that.orderTotal, that.qtys)
         },
         trNoChange(e) {
@@ -188,6 +199,8 @@ export default {
             const that = this
             // var total = that.qtys * that.currProduct.price.total
             var order = {
+                payTerm: that.payTerm,
+                cancelTerm: that.cancelTerm,
                 customerId: that.user.customerId,
                 productId: that.currProduct.productId,
                 checkIn: that.checkIn,
