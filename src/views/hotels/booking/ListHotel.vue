@@ -35,7 +35,9 @@
                 <el-table-column prop="productName" label="产品名称" width="180"></el-table-column>
                 <el-table-column prop="productDesc" label="产品说明" width="180"></el-table-column>
                 <el-table-column prop="bedType" label="床型" width="80"></el-table-column>
-                <el-table-column prop="dayprice" :formatter="priceCal" label="价格" width="180"></el-table-column>
+                <el-table-column prop="dayprice" :formatter="priceCalAvg" label="平均单价" width="180"></el-table-column>
+
+                <el-table-column prop="dayprice" :formatter="priceCal" label="总价" width="180"></el-table-column>
 
                 <el-table-column label="操作" width="60">
                     <template slot-scope="scope">
@@ -143,9 +145,13 @@ export default {
     },
     methods: {
         selectDays(e) {
-            this.checkIn = moment(e[0]).format("YYYY-MM-DD")
-            this.checkOut = moment(e[1]).format("YYYY-MM-DD")
-            console.log("select days", e, this.checkIn)
+            var checkIn = moment(e[0])
+            var checkOut = moment(e[1])
+            this.checkIn = checkIn.format("YYYY-MM-DD")
+            this.checkOut = checkOut.format("YYYY-MM-DD")
+            var days = checkOut.diff(checkIn, "days")
+            this.days = days
+            console.log("select days", days)
         },
         searchProduct() {
             const that = this
@@ -171,12 +177,27 @@ export default {
             var total = row.price.total > 0 ? row.price.total : ""
             return total;
         },
+        priceCalAvg: function (row) {
+            // 你想在页面展示的值
+            // console.log(row)
+            // var days = []
+            var total = row.price.total > 0 ? row.price.total : ""
+            if (this.days > 0) {
+                return total / this.days;
+            } else {
+                return total
+            }
+        },
         toBooking: function (row) {
             const that = this
             that.currProduct = row
             that.orderTotal = that.qtys * row.price.total
             const url = that.$api + "/hotels/get-hotel-product"
-            that.$http.get(url, { params: { productId: row.productId } }).then(
+            that.$http.get(url, {
+                params: {
+                    productId: row.productId
+                }
+            }).then(
                 (res) => {
                     console.log(res)
                     that.cancelTerm = res.data.product.cancelTerm
