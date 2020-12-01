@@ -149,9 +149,9 @@ export default {
             var checkOut = moment(e[1])
             this.checkIn = checkIn.format("YYYY-MM-DD")
             this.checkOut = checkOut.format("YYYY-MM-DD")
-            var days = checkOut.diff(checkIn, "days")
-            this.days = days
-            console.log("select days", days)
+            var dayNo = checkOut.diff(checkIn, "days")
+            this.dayNo = dayNo
+            console.log("select days", dayNo, checkIn, checkOut)
         },
         searchProduct() {
             const that = this
@@ -182,8 +182,8 @@ export default {
             // console.log(row)
             // var days = []
             var total = row.price.total > 0 ? row.price.total : ""
-            if (this.days > 0) {
-                return total / this.days;
+            if (this.dayNo > 0) {
+                return total / this.dayNo;
             } else {
                 return total
             }

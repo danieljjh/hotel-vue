@@ -126,9 +126,11 @@
 
             <el-table-column prop="productName" label="产品名称" width="180"></el-table-column>
             <el-table-column prop="productDesc" label="说明" width="180"></el-table-column>
+            <el-table-column prop="productId" label="产品Id" width="180"></el-table-column>
             <el-table-column label="操作" width="160">
                 <template slot-scope="scope">
                     <el-button type="primary" size="mini" @click="editRoomProd(scope.row)">修改</el-button>
+                    <el-button type="danger" size="mini" @click="deleteRoomProd(scope.row)">删除</el-button>
 
                 </template>
             </el-table-column>
@@ -181,7 +183,7 @@ export default {
     methods: {
         getHotelProducts(custId) {
             var that = this
-            that.$http.post(that.$api + "/hotels/find-hotel-product", {
+            that.$http.post(that.$api + "/hotels/find-hotel-product-bycust", {
                 customerId: custId
             }).then(
                 (res) => {
@@ -202,6 +204,22 @@ export default {
             });
             // window.open(nr.href, "_blank");
             window.open(nr.href, "_self");
+        },
+               deleteRoomProd(e) {
+            // const roomToDel = this.roomToDel
+            const url = this.$api + "/hotels/room-product-remove"
+            this.$http.get(url, {
+                params: {
+                    productId: e.productId,
+                    status: "toDel"
+                }
+            }).then(
+                (res) => {
+                    console.log(res)
+                    // this.dialogVisible = false
+                    this.$router.go()
+                }
+            )
         },
         getHotels() {
             var that = this
